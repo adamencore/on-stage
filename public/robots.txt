@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://onstage-stgeorge.com/sitemap-index.xml
+Sitemap: https://on-stage-sg.netlify.app/sitemap-index.xml
