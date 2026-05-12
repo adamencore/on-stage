@@ -1,0 +1,137 @@
+{
+  "$schema": "Each event represents one production or film with one or more performance dates. Fields: id (stable string), title, organization (matches src/data/organizations.js), category (theater | dance | film | music | other), performances (array of {start, end} ISO 8601 with timezone), description (full paragraph), shortDescription (1 sentence for cards), ticketUrl (org site), priceRange (display string), ageGuidance (display string or null), image (optional path to a square thumbnail e.g. /images/events/foo.jpg — 600x600 or larger recommended), imageAlt (optional alt text for the image), accentColor (optional hex code, e.g. #8a5e2e, used as the italic/eyebrow accent on the event detail page; pick from the event image manually or via an online color picker). All sample events below are placeholders for the city pitch and should be replaced as real events get scheduled.",
+  "events": [
+    {
+      "id": "stage-door-dear-evan-hansen-2026-05",
+      "title": "Dear Evan Hansen",
+      "organization": "stage-door",
+      "category": "theater",
+      "performances": [
+        { "start": "2026-05-22T19:30:00-06:00", "end": "2026-05-22T22:00:00-06:00" },
+        { "start": "2026-05-23T19:30:00-06:00", "end": "2026-05-23T22:00:00-06:00" },
+        { "start": "2026-05-29T19:30:00-06:00", "end": "2026-05-29T22:00:00-06:00" },
+        { "start": "2026-05-30T19:30:00-06:00", "end": "2026-05-30T22:00:00-06:00" }
+      ],
+      "description": "Stage Door brings the six-time Tony-winning musical to the Electric Theater for a four-night run. A letter that was never meant to be seen sends a lonely teenager on a journey of self-discovery, family, and what it means to be found.",
+      "shortDescription": "A six-time Tony-winning musical about loneliness, family, and being found, staged for four nights only.",
+      "image": "/images/events/dear-evan-hansen.svg",
+      "imageAlt": "Dear Evan Hansen — Stage Door at the Electric Theater",
+      "accentColor": "#2f5d6e",
+      "ticketUrl": "https://www.stagedoorutah.com/",
+      "priceRange": "$18–$28",
+      "ageGuidance": "Recommended 13+ (mature themes)"
+    },
+    {
+      "id": "encore-beauty-and-the-beast-jr-2026-06",
+      "title": "Disney's Beauty and the Beast Jr.",
+      "organization": "encore-performing-arts",
+      "category": "theater",
+      "performances": [
+        { "start": "2026-06-12T19:00:00-06:00", "end": "2026-06-12T21:00:00-06:00" },
+        { "start": "2026-06-13T14:00:00-06:00", "end": "2026-06-13T16:00:00-06:00" },
+        { "start": "2026-06-13T19:00:00-06:00", "end": "2026-06-13T21:00:00-06:00" },
+        { "start": "2026-06-19T19:00:00-06:00", "end": "2026-06-19T21:00:00-06:00" },
+        { "start": "2026-06-20T14:00:00-06:00", "end": "2026-06-20T16:00:00-06:00" }
+      ],
+      "description": "Encore's summer mainstage features young performers ages 7–18 in a full production of the beloved Disney musical. Be Our Guest for a tale as old as time, performed with live accompaniment.",
+      "shortDescription": "Encore's summer mainstage musical, performed by a cast of young artists ages 7 to 18.",
+      "ticketUrl": "https://encorepa.org/",
+      "priceRange": "$12–$18",
+      "ageGuidance": "All ages"
+    },
+    {
+      "id": "fmasu-electric-film-series-june-2026",
+      "title": "Electric Film Series: Singin' in the Rain",
+      "organization": "fmasu",
+      "category": "film",
+      "performances": [
+        { "start": "2026-06-26T19:30:00-06:00", "end": "2026-06-26T21:45:00-06:00" }
+      ],
+      "description": "FMASU's free monthly film series brings the great films back to the big screen. June's screening is the 1952 MGM classic Singin' in the Rain, presented with a short introduction by a local film historian. Free and open to the public.",
+      "shortDescription": "A free screening of the 1952 MGM classic, with a short introduction by a local film historian.",
+      "image": "/images/events/singin-in-the-rain.svg",
+      "imageAlt": "Singin' in the Rain — Electric Film Series",
+      "accentColor": "#b3711f",
+      "ticketUrl": "https://www.fmasu.com/",
+      "priceRange": "Free",
+      "ageGuidance": "All ages"
+    },
+    {
+      "id": "sgdc-red-rock-dance-festival-2026",
+      "title": "Red Rock Dance Festival",
+      "organization": "st-george-dance-company",
+      "category": "dance",
+      "performances": [
+        { "start": "2026-07-17T19:30:00-06:00", "end": "2026-07-17T21:30:00-06:00" },
+        { "start": "2026-07-18T19:30:00-06:00", "end": "2026-07-18T21:30:00-06:00" }
+      ],
+      "description": "The annual Red Rock Dance Festival returns with two evenings of new work from regional and visiting choreographers, plus a juried showcase of student choreography. A weekend of workshops surrounds the main stage performances.",
+      "shortDescription": "Two evenings of new work from regional and visiting choreographers, plus a juried student showcase.",
+      "ticketUrl": "https://www.stgeorgedance.com/",
+      "priceRange": "$20–$35",
+      "ageGuidance": "All ages"
+    },
+    {
+      "id": "stage-door-come-from-away-2026-08",
+      "title": "Come from Away",
+      "organization": "stage-door",
+      "category": "theater",
+      "performances": [
+        { "start": "2026-08-14T19:30:00-06:00", "end": "2026-08-14T22:00:00-06:00" },
+        { "start": "2026-08-15T19:30:00-06:00", "end": "2026-08-15T22:00:00-06:00" },
+        { "start": "2026-08-21T19:30:00-06:00", "end": "2026-08-21T22:00:00-06:00" },
+        { "start": "2026-08-22T19:30:00-06:00", "end": "2026-08-22T22:00:00-06:00" }
+      ],
+      "description": "The true story of 7,000 stranded passengers and the small town in Newfoundland that welcomed them. Stage Door's production of the Broadway hit runs four nights only at the Electric Theater.",
+      "shortDescription": "The Broadway hit about a small town in Newfoundland that welcomed 7,000 stranded passengers.",
+      "ticketUrl": "https://www.stagedoorutah.com/",
+      "priceRange": "$18–$28",
+      "ageGuidance": "Recommended 10+"
+    },
+    {
+      "id": "encore-aspire-showcase-2026-09",
+      "title": "Aspire Show Choir Showcase",
+      "organization": "encore-performing-arts",
+      "category": "music",
+      "performances": [
+        { "start": "2026-09-25T19:00:00-06:00", "end": "2026-09-25T20:30:00-06:00" }
+      ],
+      "description": "Encore's Aspire Performing Co. presents its season-opening showcase: a single evening of musical theater repertoire, contemporary pop arrangements, and student-choreographed numbers.",
+      "shortDescription": "Encore's show choir opens the season with musical theater repertoire and student-choreographed numbers.",
+      "ticketUrl": "https://encorepa.org/",
+      "priceRange": "$10–$15",
+      "ageGuidance": "All ages"
+    },
+    {
+      "id": "fmasu-horrorfest-international-2026",
+      "title": "HorrorFest International 2026",
+      "organization": "fmasu",
+      "category": "film",
+      "performances": [
+        { "start": "2026-10-16T18:00:00-06:00", "end": "2026-10-16T23:30:00-06:00" },
+        { "start": "2026-10-17T13:00:00-06:00", "end": "2026-10-17T23:30:00-06:00" },
+        { "start": "2026-10-18T13:00:00-06:00", "end": "2026-10-18T22:00:00-06:00" }
+      ],
+      "description": "A three-day international festival of independent horror cinema, curated by FMASU. The lineup includes feature premieres, short film blocks, filmmaker Q&As, and the always-popular Saturday-night midnight selection.",
+      "shortDescription": "A three-day festival of independent horror features, shorts, and filmmaker Q&As.",
+      "ticketUrl": "https://www.fmasu.com/",
+      "priceRange": "$15 single / $40 weekend pass",
+      "ageGuidance": "17+ recommended (varies by film)"
+    },
+    {
+      "id": "sgdc-fall-contemporary-concert-2026",
+      "title": "Fall Contemporary Concert",
+      "organization": "st-george-dance-company",
+      "category": "dance",
+      "performances": [
+        { "start": "2026-11-13T19:30:00-06:00", "end": "2026-11-13T21:00:00-06:00" },
+        { "start": "2026-11-14T19:30:00-06:00", "end": "2026-11-14T21:00:00-06:00" }
+      ],
+      "description": "St. George Dance Company opens its fall season with an evening of contemporary works from the resident company and guest choreographers. The program spans a range of contemporary styles, from neo-classical to release-based movement.",
+      "shortDescription": "An evening of contemporary works from the resident company and guest choreographers.",
+      "ticketUrl": "https://www.stgeorgedance.com/",
+      "priceRange": "$20–$30",
+      "ageGuidance": "All ages"
+    }
+  ]
+}

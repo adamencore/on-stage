@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="About the Electric Theater"
+  description="The Electric Theater opened in 1911 as the first motion picture theater and the first air-conditioned building in St. George, Utah. A history of the venue and its second life as a downtown arts district."
+>
+  <section class="page-head">
+    <div class="container">
+      <p class="eyebrow eyebrow--accent">About</p>
+      <h1>The Electric Theater</h1>
+      <p class="page-head__lede">
+        Opened in 1911. Closed for movies in 1999. Bought by the City of St. George in 2013. Reopened in 2015 after a $3 million renovation. Now the home of four resident performing arts companies — and the anchor of a small downtown arts district.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="prose">
+        <p>
+          The Electric Theater opened its doors on the corner of Tabernacle and Main in 1911 — built by Charlie Whipple, Johnnie Pymm, and Sherman Hardy. It was the first motion picture theater in southern Utah, and, according to local history, the first air-conditioned building in St. George.
+        </p>
+
+        <p>
+          In 1930, R. M. Reber purchased the theater for $10,000 and renamed it the Gaiety through a public naming contest. The name stuck for decades. Later renovations eventually restored the original Electric Theater name above the door.
+        </p>
+
+        <p>
+          The building stopped showing movies in 1999, and for several years it sat largely dark. In 2003, the Flowers family revitalized it as a venue for live music and entertainment, building it out with 143 main floor seats and 50 balcony seats.
+        </p>
+
+        <h2>A second life as a public venue</h2>
+        <p>
+          In 2013, the City of St. George acquired the Electric Theater along with two adjacent buildings — the beginning of what the city envisioned as a downtown arts district. Two years later, in 2015, the theater reopened following a $3 million renovation that modernized the facility while preserving its historic facade.
+        </p>
+
+        <p>
+          Today the Electric Theater is a city-owned performing arts venue. It hosts art and comedy shows, music performances, theatrical productions, and screenings — with an emphasis on supporting local and emerging artists in Washington County and across southern Utah.
+        </p>
+
+        <blockquote>
+          More than a century after it opened, the Electric Theater is still doing what it was built for: putting Southern Utahns in a room with a performance.
+        </blockquote>
+
+        <h2>Resident companies</h2>
+        <p>
+          Four producing organizations make their season homes here:
+        </p>
+        <ul>
+          <li><strong>Encore Performing Arts</strong> — youth musical theater, in residence since approximately 2018</li>
+          <li><strong>Stage Door</strong> — award-winning community theater for adult audiences</li>
+          <li><strong>St. George Dance Company</strong> — contemporary and classical dance, plus the annual Red Rock Dance Festival</li>
+          <li><strong>Film and Media Alliance of Southern Utah (FMASU)</strong> — the Desertscape International Film Festival, HorrorFest International, the Electric Film Series, and more</li>
+        </ul>
+
+        <p>
+          On Stage exists to give those four programs a single, public-facing calendar — and to give the building itself the front door it deserves.
+        </p>
+
+        <p class="prose__attribution">
+          History sourced from <a href="https://www.encorepa.org/blog/the-historic-electric-theater-in-st-george-utah" target="_blank" rel="noopener">Encore Performing Arts' history of the Electric Theater</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: var(--space-2xl) var(--space-l);
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg-deep);
+  }
+
+  .page-head h1 {
+    margin: var(--space-s) 0 var(--space-m);
+    font-size: var(--step-5);
+  }
+
+  .page-head__lede {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .prose__attribution {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+  }
+</style>

@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found" description="The page you're looking for doesn't exist." noindex={true}>
+  <section class="not-found">
+    <div class="container container--narrow not-found__inner">
+      <p class="eyebrow eyebrow--accent">404</p>
+      <h1 class="not-found__title">That page isn't on this stage.</h1>
+      <p class="not-found__lede">
+        The link may be broken, or the page may have moved. Try the events calendar, or head back to the home page.
+      </p>
+      <div class="not-found__actions">
+        <a href="/" class="btn btn--primary">Home</a>
+        <a href="/events/" class="btn btn--ghost">See events</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .not-found {
+    padding-block: var(--space-3xl);
+    text-align: center;
+  }
+
+  .not-found__inner {
+    max-width: 60ch;
+  }
+
+  .not-found__title {
+    font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
+    margin: var(--space-s) 0 var(--space-m);
+    font-style: italic;
+    color: var(--accent-deep);
+  }
+
+  .not-found__lede {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    margin: 0 auto var(--space-l);
+  }
+
+  .not-found__actions {
+    display: flex;
+    gap: var(--space-s);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

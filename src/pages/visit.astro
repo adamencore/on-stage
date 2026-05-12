@@ -1,0 +1,258 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Visit"
+  description="The Electric Theater is at 68 East Tabernacle Street in downtown St. George, Utah. Directions, parking, and what to expect when you arrive."
+>
+  <section class="page-head">
+    <div class="container">
+      <p class="eyebrow eyebrow--accent">Visit</p>
+      <h1>68 East Tabernacle Street</h1>
+      <p class="page-head__lede">
+        The Electric Theater sits in the heart of downtown St. George — easy walking distance from the city's restaurants, the Tabernacle, and the Town Square.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container visit-grid">
+      <div class="visit-content">
+        <div class="visit-block">
+          <h2 class="visit-block__heading">Address</h2>
+          <p class="visit-block__body">
+            <strong>Electric Theater</strong><br />
+            68 East Tabernacle Street<br />
+            St. George, Utah 84770
+          </p>
+          <p>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=68+E+Tabernacle+St+St+George+UT+84770" target="_blank" rel="noopener" class="btn btn--ghost btn--small">
+              Get directions ↗
+            </a>
+          </p>
+        </div>
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">Parking</h2>
+          <p>
+            Free street parking is available along Tabernacle Street and on the surrounding blocks. Additional public parking lots are within a one- to two-block walk:
+          </p>
+          <ul class="visit-list">
+            <li>Town Square parking (Main Street &amp; St. George Boulevard)</li>
+            <li>City Hall public lot (175 East 200 North)</li>
+            <li>Public lot on the north side of Tabernacle Street</li>
+          </ul>
+          <p class="visit-block__note">
+            Performances often coincide with downtown dining hours — we recommend arriving 20 minutes before showtime.
+          </p>
+        </div>
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">When you arrive</h2>
+          <p>
+            The Electric Theater seats 143 on the main floor and 50 in the balcony. Doors typically open 30 minutes before showtime. Specific seating, ticket pickup, and concessions are handled by each producing organization — confirm the details on the event page or with the organization directly.
+          </p>
+        </div>
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">Accessibility</h2>
+          <p>
+            The main floor is accessible via the Tabernacle Street entrance. If you have specific accessibility needs for a performance, please reach out to the producing organization in advance — contact links are on each event page.
+          </p>
+        </div>
+
+        <div class="visit-block">
+          <h2 class="visit-block__heading">Tickets</h2>
+          <p>
+            Tickets are sold directly by each producing organization. Every event listed on On Stage links to the producer's box office or ticketing page.
+          </p>
+        </div>
+      </div>
+
+      <aside class="visit-sidebar">
+        <div class="visit-card">
+          <p class="eyebrow">Quick facts</p>
+          <dl class="visit-facts">
+            <div>
+              <dt>Built</dt>
+              <dd>1911</dd>
+            </div>
+            <div>
+              <dt>Capacity</dt>
+              <dd>193 (143 main + 50 balcony)</dd>
+            </div>
+            <div>
+              <dt>Owner</dt>
+              <dd>City of St. George</dd>
+            </div>
+            <div>
+              <dt>Resident companies</dt>
+              <dd>Four</dd>
+            </div>
+          </dl>
+        </div>
+
+        <a class="visit-map" href="https://www.google.com/maps/dir/?api=1&destination=68+E+Tabernacle+St+St+George+UT+84770" target="_blank" rel="noopener" aria-label="Open in Google Maps">
+          <div class="visit-map__inner">
+            <span class="visit-map__pin">📍</span>
+            <span class="visit-map__label">Open in Maps ↗</span>
+          </div>
+        </a>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: var(--space-2xl) var(--space-l);
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg-deep);
+  }
+
+  .page-head h1 {
+    margin: var(--space-s) 0 var(--space-m);
+    font-size: var(--step-5);
+  }
+
+  .page-head__lede {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  @media (max-width: 880px) {
+    .visit-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .visit-block + .visit-block {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--rule);
+  }
+
+  .visit-block__heading {
+    font-size: var(--step-2);
+    margin: 0 0 var(--space-s);
+  }
+
+  .visit-block__body,
+  .visit-block p {
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .visit-block__note {
+    font-size: 0.92rem;
+    color: var(--ink-mute);
+    font-style: italic;
+    margin-top: var(--space-s);
+  }
+
+  .visit-list {
+    padding-left: 1.25rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  .visit-list li {
+    margin-bottom: 0.35rem;
+  }
+
+  .visit-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+    position: sticky;
+    top: calc(72px + var(--space-m));
+  }
+
+  @media (max-width: 880px) {
+    .visit-sidebar {
+      position: static;
+    }
+  }
+
+  .visit-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    padding: var(--space-l);
+  }
+
+  .visit-facts {
+    margin: var(--space-m) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+
+  .visit-facts > div {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .visit-facts dt {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+
+  .visit-facts dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+
+  .visit-map {
+    display: block;
+    background: var(--bg-deep);
+    background-image:
+      linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, transparent), transparent 50%),
+      repeating-linear-gradient(45deg, transparent 0 12px, color-mix(in srgb, var(--ink) 3%, transparent) 12px 13px);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    aspect-ratio: 4 / 3;
+    text-decoration: none;
+    transition: border-color 240ms ease;
+  }
+
+  .visit-map:hover {
+    border-color: var(--ink);
+  }
+
+  .visit-map__inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+  }
+
+  .visit-map__pin {
+    font-size: 2rem;
+  }
+
+  .visit-map__label {
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+</style>

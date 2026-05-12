@@ -1,0 +1,164 @@
+---
+import { organizations } from '../data/organizations.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__col site-footer__col--brand">
+      <div class="wordmark wordmark--footer">
+        <span class="wordmark__name">On Stage</span>
+        <span class="wordmark__venue">at the Electric Theater</span>
+      </div>
+      <p class="site-footer__address">
+        68 E Tabernacle Street<br />
+        St. George, Utah 84770
+      </p>
+    </div>
+
+    <div class="site-footer__col">
+      <h3 class="site-footer__heading">Visit</h3>
+      <ul>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/organizations/">Resident organizations</a></li>
+        <li><a href="/about/">About the theater</a></li>
+        <li><a href="/visit/">Plan your visit</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h3 class="site-footer__heading">Resident companies</h3>
+      <ul>
+        {organizations.map((org) => (
+          <li>
+            <a href={`/organizations/${org.slug}/`}>{org.name}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h3 class="site-footer__heading">For the city</h3>
+      <ul>
+        <li><a href="/vision/">Our vision</a></li>
+      </ul>
+      <p class="site-footer__note">
+        On Stage is an independent initiative to promote events at the City of St. George's Electric Theater. The theater is owned and maintained by the City of St. George.
+      </p>
+    </div>
+  </div>
+
+  <div class="container site-footer__legal">
+    <p>© {year} On Stage. All event details subject to change — confirm with each producing organization.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-3xl);
+    padding-block: var(--space-2xl) var(--space-l);
+    background: var(--bg-deep);
+    border-top: 1px solid var(--rule);
+    color: var(--ink-soft);
+  }
+
+  .site-footer__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr 1.4fr;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  @media (max-width: 880px) {
+    .site-footer__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .site-footer__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .wordmark--footer {
+    display: inline-flex;
+    flex-direction: column;
+    line-height: 1;
+    margin-bottom: var(--space-s);
+  }
+
+  .wordmark--footer .wordmark__name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--ink);
+  }
+
+  .wordmark--footer .wordmark__venue {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-top: 0.4rem;
+  }
+
+  .site-footer__address {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .site-footer__heading {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 var(--space-s);
+  }
+
+  .site-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .site-footer a {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 200ms ease, border-color 200ms ease;
+  }
+
+  .site-footer a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  .site-footer__note {
+    margin-top: var(--space-s);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: var(--ink-mute);
+    max-width: 30ch;
+  }
+
+  .site-footer__legal {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--rule);
+    font-size: 0.78rem;
+    color: var(--ink-mute);
+  }
+
+  .site-footer__legal p {
+    margin: 0;
+  }
+</style>

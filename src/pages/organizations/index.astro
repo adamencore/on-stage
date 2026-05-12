@@ -1,0 +1,179 @@
+---
+import Base from '../../layouts/Base.astro';
+import { organizations } from '../../data/organizations.js';
+import { getEventsByOrganization } from '../../data/events.js';
+
+const orgsWithCounts = organizations.map((org) => ({
+  ...org,
+  upcomingCount: getEventsByOrganization(org.slug).filter((e) => e.isUpcoming).length,
+}));
+---
+
+<Base
+  title="Resident organizations"
+  description="The Electric Theater is home to four resident performing arts organizations: Encore Performing Arts, Stage Door, St. George Dance Company, and the Film and Media Alliance of Southern Utah."
+>
+  <section class="page-head">
+    <div class="container">
+      <p class="eyebrow eyebrow--accent">In residence</p>
+      <h1>Four companies. One stage.</h1>
+      <p class="page-head__lede">
+        The Electric Theater is more than a building — it's the year-round home of four producing organizations. Each runs an independent season. Together, they fill the calendar with theater, dance, film, and music.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ul class="org-list">
+        {orgsWithCounts.map((org) => (
+          <li class="org-row">
+            <a href={`/organizations/${org.slug}/`} class="org-row__link">
+              <div class="org-row__head">
+                <span class="org-row__category">{org.category}</span>
+                {org.upcomingCount > 0 && (
+                  <span class="org-row__count">{org.upcomingCount} upcoming</span>
+                )}
+              </div>
+              <h2 class="org-row__name">{org.name}</h2>
+              <p class="org-row__tagline">{org.tagline}</p>
+              <p class="org-row__desc">{org.description}</p>
+              <span class="org-row__cta">View their season →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: var(--space-2xl) var(--space-l);
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg-deep);
+  }
+
+  .page-head h1 {
+    margin: var(--space-s) 0 var(--space-m);
+    font-size: var(--step-5);
+  }
+
+  .page-head__lede {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .org-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .org-row {
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .org-row__link {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'head head'
+      'name cta'
+      'tagline cta'
+      'desc desc';
+    column-gap: var(--space-l);
+    align-items: start;
+    padding: var(--space-l) 0;
+    text-decoration: none;
+    color: inherit;
+    transition: padding 240ms ease;
+  }
+
+  .org-row__link:hover {
+    padding-left: var(--space-s);
+  }
+
+  .org-row__link:hover .org-row__cta {
+    color: var(--accent-deep);
+    gap: 0.85rem;
+  }
+
+  .org-row__head {
+    grid-area: head;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+  }
+
+  .org-row__category {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+
+  .org-row__count {
+    font-size: 0.78rem;
+    color: var(--accent-deep);
+    font-weight: 500;
+  }
+
+  .org-row__name {
+    grid-area: name;
+    font-size: var(--step-4);
+    margin: 0;
+  }
+
+  .org-row__tagline {
+    grid-area: tagline;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    margin: var(--space-2xs) 0 0;
+  }
+
+  .org-row__desc {
+    grid-area: desc;
+    color: var(--ink-soft);
+    margin: var(--space-s) 0 0;
+    max-width: 70ch;
+    line-height: 1.6;
+  }
+
+  .org-row__cta {
+    grid-area: cta;
+    align-self: center;
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 500;
+    transition: color 200ms ease, gap 200ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    .org-row__link {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'head'
+        'name'
+        'tagline'
+        'desc'
+        'cta';
+    }
+
+    .org-row__cta {
+      margin-top: var(--space-s);
+    }
+  }
+</style>

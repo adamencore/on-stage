@@ -1,0 +1,247 @@
+---
+import Base from '../layouts/Base.astro';
+import EventCard from '../components/EventCard.astro';
+import { getFeaturedEvents, getUpcomingEvents } from '../data/events.js';
+import { organizations } from '../data/organizations.js';
+
+const featured = getFeaturedEvents(3);
+const upcomingCount = getUpcomingEvents().length;
+---
+
+<Base
+  title={null}
+  description="On Stage is the home for live performance at the historic Electric Theater in St. George, Utah. Theater, dance, film, and music from the venue's four resident companies."
+>
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="eyebrow">St. George · Utah</p>
+      <h1 class="hero__title">
+        <span>Live performance,</span>
+        <span class="hero__title-italic">in&nbsp;a&nbsp;1911&nbsp;theater.</span>
+      </h1>
+      <p class="hero__lede">
+        The Electric Theater has been a fixture of downtown St. George for more than a century. On Stage is where you find every live performance happening inside it — theater, dance, film, and music from the venue's four resident companies.
+      </p>
+      <div class="hero__actions">
+        <a href="/events/" class="btn btn--primary">See all events</a>
+        <a href="/about/" class="btn btn--ghost">About the theater</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow eyebrow--accent">Coming up</p>
+          <h2>Featured upcoming</h2>
+        </div>
+        <a href="/events/" class="section-head__link">All {upcomingCount} events →</a>
+      </div>
+
+      <div class="featured-grid">
+        {featured.map((event) => (
+          <EventCard event={event} variant="featured" />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight residents">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow eyebrow--accent">In residence</p>
+          <h2>Four companies. One stage.</h2>
+        </div>
+        <a href="/organizations/" class="section-head__link">Meet them all →</a>
+      </div>
+
+      <div class="residents-grid">
+        {organizations.map((org) => (
+          <a href={`/organizations/${org.slug}/`} class="resident-card">
+            <span class="resident-card__category">{org.category}</span>
+            <h3 class="resident-card__name">{org.name}</h3>
+            <p class="resident-card__desc">{org.tagline}</p>
+            <span class="resident-card__cta">Their work →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container cta-band__inner">
+      <div>
+        <p class="eyebrow eyebrow--accent">Visit</p>
+        <h2 class="cta-band__title">68 East Tabernacle Street</h2>
+        <p class="cta-band__sub">Downtown St. George. Parking, directions, and what to expect when you arrive.</p>
+      </div>
+      <a href="/visit/" class="btn btn--ghost">Plan your visit</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(3.5rem, 8vw, 7rem) clamp(2.5rem, 5vw, 4.5rem);
+    border-bottom: 1px solid var(--rule);
+    background:
+      radial-gradient(ellipse at 80% 0%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%),
+      var(--bg);
+  }
+
+  .hero__inner {
+    max-width: 900px;
+  }
+
+  .hero__title {
+    font-size: clamp(2.6rem, 1.8rem + 4.5vw, 5.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: var(--space-m) 0 var(--space-l);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .hero__title-italic {
+    font-style: italic;
+    color: var(--accent-deep);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+
+  .hero__lede {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-bottom: var(--space-l);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+  }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-l);
+  }
+
+  /* Residents */
+  .residents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .resident-card {
+    padding: var(--space-l) var(--space-m) var(--space-l) 0;
+    border-bottom: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 240ms ease, padding 240ms ease;
+    padding-left: var(--space-m);
+  }
+
+  .resident-card:hover {
+    background: var(--bg-deep);
+  }
+
+  .resident-card:hover .resident-card__cta {
+    color: var(--accent-deep);
+  }
+
+  .resident-card:nth-child(4n) {
+    border-right: 0;
+  }
+
+  @media (max-width: 760px) {
+    .resident-card {
+      border-right: 0;
+    }
+  }
+
+  .resident-card__category {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+
+  .resident-card__name {
+    font-size: var(--step-2);
+    margin: 0;
+  }
+
+  .resident-card__desc {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+
+  .resident-card__cta {
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 500;
+    margin-top: var(--space-s);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--rule-soft);
+    transition: color 200ms ease;
+  }
+
+  /* CTA band */
+  .cta-band {
+    margin-top: var(--space-xl);
+    padding-block: var(--space-2xl);
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .cta-band .eyebrow {
+    color: color-mix(in srgb, var(--bg) 65%, var(--accent));
+  }
+
+  .cta-band__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-l);
+    flex-wrap: wrap;
+  }
+
+  .cta-band__title {
+    color: var(--bg);
+    font-size: var(--step-4);
+    margin: var(--space-s) 0 var(--space-xs);
+  }
+
+  .cta-band__sub {
+    color: color-mix(in srgb, var(--bg) 75%, transparent);
+    margin: 0;
+    max-width: 50ch;
+  }
+
+  .cta-band .btn--ghost {
+    color: var(--bg);
+    border-color: var(--bg);
+  }
+
+  .cta-band .btn--ghost:hover {
+    background: var(--bg);
+    color: var(--ink);
+  }
+</style>

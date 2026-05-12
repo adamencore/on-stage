@@ -1,0 +1,392 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getAllEvents, formatDate, formatTime, formatPerformanceRange } from '../../data/events.js';
+
+export async function getStaticPaths() {
+  const events = getAllEvents();
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props;
+const dateLabel = formatPerformanceRange(event);
+const accent = event.accentColor || null;
+const accentStyle = accent ? `--event-accent: ${accent};` : undefined;
+
+const SCHEMA_TYPE_BY_CATEGORY = {
+  theater: 'TheaterEvent',
+  dance: 'DanceEvent',
+  film: 'ScreeningEvent',
+  music: 'MusicEvent',
+  other: 'Event',
+};
+
+const schemaType = SCHEMA_TYPE_BY_CATEGORY[event.category] || 'Event';
+const venue = {
+  '@type': 'Place',
+  name: 'Electric Theater',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '68 E Tabernacle St',
+    addressLocality: 'St. George',
+    addressRegion: 'UT',
+    postalCode: '84770',
+    addressCountry: 'US',
+  },
+};
+
+const eventUrl = new URL(event.url, Astro.site).toString();
+
+const jsonLd = event.performances.map((p) => ({
+  '@context': 'https://schema.org',
+  '@type': schemaType,
+  name: event.title,
+  description: event.description,
+  startDate: p.startISO,
+  endDate: p.endISO || undefined,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  location: venue,
+  url: eventUrl,
+  organizer: {
+    '@type': 'Organization',
+    name: event.organization.name,
+    url: event.organization.website,
+  },
+  performer: {
+    '@type': 'PerformingGroup',
+    name: event.organization.name,
+  },
+  offers: {
+    '@type': 'Offer',
+    url: event.ticketUrl,
+    availability: 'https://schema.org/InStock',
+  },
+}));
+---
+
+<Base
+  title={event.title}
+  description={event.shortDescription}
+  jsonLd={jsonLd.length === 1 ? jsonLd[0] : jsonLd}
+>
+  <article class="event" style={accentStyle}>
+    <header class="event-hero">
+      <div class="container event-hero__inner">
+        <div class="event-hero__meta">
+          <a href="/events/" class="event-hero__back">← All events</a>
+          <span class="tag">{event.category}</span>
+        </div>
+
+        <p class="eyebrow eyebrow--accent">
+          Presented by <a href={`/organizations/${event.organizationSlug}/`}>{event.organization.name}</a>
+        </p>
+
+        <h1 class="event-hero__title">{event.title}</h1>
+        <p class="event-hero__lede">{event.shortDescription}</p>
+      </div>
+    </header>
+
+    <div class="container event-body">
+      <div class="event-body__content">
+        <section>
+          <h2 class="event-section-head">About this {event.category === 'film' ? 'screening' : 'production'}</h2>
+          <p class="event-description">{event.description}</p>
+        </section>
+
+        <section>
+          <h2 class="event-section-head">All performances</h2>
+          <ol class="performances">
+            {event.performances.map((p) => {
+              const isPast = p.start < new Date();
+              return (
+                <li class:list={['performance', { 'is-past': isPast }]}>
+                  <div class="performance__date">{formatDate(p.start)}</div>
+                  <div class="performance__time">
+                    {formatTime(p.start)}{p.end ? ` – ${formatTime(p.end)}` : ''}
+                  </div>
+                  {isPast && <span class="performance__badge">Past</span>}
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      </div>
+
+      <aside class="event-sidebar">
+        {event.image && (
+          <figure class="event-thumb">
+            <img
+              src={event.image}
+              alt={event.imageAlt || `${event.title} — ${event.organization.name}`}
+              width="600"
+              height="600"
+              loading="eager"
+              decoding="async"
+            />
+          </figure>
+        )}
+
+        <div class="event-card-detail">
+          <p class="eyebrow">Tickets &amp; details</p>
+
+          <dl class="event-detail-list">
+            <div>
+              <dt>When</dt>
+              <dd>{dateLabel}</dd>
+            </div>
+            <div>
+              <dt>Where</dt>
+              <dd>
+                Electric Theater<br />
+                68 E Tabernacle St<br />
+                St. George, UT 84770
+              </dd>
+            </div>
+            {event.priceRange && (
+              <div>
+                <dt>Price</dt>
+                <dd>{event.priceRange}</dd>
+              </div>
+            )}
+            {event.ageGuidance && (
+              <div>
+                <dt>Audience</dt>
+                <dd>{event.ageGuidance}</dd>
+              </div>
+            )}
+            <div>
+              <dt>Presented by</dt>
+              <dd>
+                <a href={`/organizations/${event.organizationSlug}/`}>{event.organization.name}</a>
+              </dd>
+            </div>
+          </dl>
+
+          {event.ticketUrl && (
+            <a href={event.ticketUrl} class="btn btn--primary event-card-detail__cta" target="_blank" rel="noopener">
+              Tickets at {event.organization.shortName} ↗
+            </a>
+          )}
+          <p class="event-card-detail__note">Tickets are sold directly by {event.organization.shortName}. Confirm performance details on their site.</p>
+        </div>
+      </aside>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .event {
+    --event-accent: var(--accent-deep);
+  }
+
+  .event-hero {
+    padding-block: var(--space-2xl);
+    border-bottom: 1px solid var(--rule);
+    background:
+      radial-gradient(circle at 90% 20%, color-mix(in srgb, var(--event-accent) 14%, transparent), transparent 55%),
+      var(--bg-deep);
+  }
+
+  .event-hero .eyebrow--accent {
+    color: var(--event-accent);
+  }
+
+  .event-hero .eyebrow--accent a {
+    color: var(--event-accent);
+    text-decoration-color: color-mix(in srgb, var(--event-accent) 40%, transparent);
+  }
+
+  .event-hero .eyebrow--accent a:hover {
+    text-decoration-color: var(--event-accent);
+  }
+
+  .event-thumb {
+    margin: 0 0 var(--space-m);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    border: 1px solid var(--rule);
+    background: var(--bg-deep);
+    aspect-ratio: 1 / 1;
+  }
+
+  .event-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .event-hero__inner {
+    max-width: 900px;
+  }
+
+  .event-hero__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    margin-bottom: var(--space-l);
+  }
+
+  .event-hero__back {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .event-hero__back:hover {
+    color: var(--accent-deep);
+  }
+
+  .event-hero__title {
+    font-size: clamp(2.4rem, 1.8rem + 3.5vw, 4.6rem);
+    line-height: 1.05;
+    margin: var(--space-s) 0 var(--space-m);
+  }
+
+  .event-hero__lede {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: 55ch;
+    margin: 0;
+  }
+
+  .event-body {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--space-2xl);
+    padding-block: var(--space-2xl);
+    align-items: start;
+  }
+
+  @media (max-width: 880px) {
+    .event-body {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+  }
+
+  .event-body__content section + section {
+    margin-top: var(--space-xl);
+  }
+
+  .event-section-head {
+    font-size: var(--step-2);
+    margin: 0 0 var(--space-m);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .event-description {
+    font-size: var(--step-1);
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  .performances {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .performance {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: baseline;
+    gap: var(--space-m);
+    padding: var(--space-s) 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+
+  .performance__date {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .performance__time {
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .performance__badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+
+  .performance.is-past .performance__date,
+  .performance.is-past .performance__time {
+    color: var(--ink-mute);
+    text-decoration: line-through;
+  }
+
+  .event-sidebar {
+    position: sticky;
+    top: calc(72px + var(--space-m));
+  }
+
+  @media (max-width: 880px) {
+    .event-sidebar {
+      position: static;
+    }
+  }
+
+  .event-card-detail {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    padding: var(--space-l);
+  }
+
+  .event-detail-list {
+    margin: var(--space-m) 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+
+  .event-detail-list > div {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .event-detail-list dt {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    font-weight: 500;
+  }
+
+  .event-detail-list dd {
+    margin: 0;
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .event-card-detail__cta {
+    width: 100%;
+    justify-content: center;
+    margin-top: var(--space-s);
+  }
+
+  .event-card-detail__note {
+    margin: var(--space-s) 0 0;
+    font-size: 0.8rem;
+    color: var(--ink-mute);
+    line-height: 1.5;
+  }
+</style>

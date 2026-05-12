@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Vision"
+  description="A proposal to the City of St. George: adopt On Stage as the official front door for the Electric Theater, giving the city's resident performing arts organizations a single, visible home online."
+>
+  <section class="vision-hero">
+    <div class="container vision-hero__inner">
+      <p class="eyebrow eyebrow--accent">A proposal to the City of St. George</p>
+      <h1 class="vision-hero__title">
+        The Electric Theater has a building.<br />
+        <span class="vision-hero__italic">It deserves a front door.</span>
+      </h1>
+      <p class="vision-hero__lede">
+        On Stage is a working prototype of what the official Electric Theater website could be — built independently and offered to the city. Below is the case for why it's worth making this real.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="prose">
+        <h2>The situation today</h2>
+        <p>
+          The City of St. George has invested significantly in the Electric Theater: the 2013 acquisition, the $3 million renovation, and the ongoing operation of one of the most architecturally distinctive venues in southern Utah. Four established organizations program it year-round — Encore Performing Arts, Stage Door, St. George Dance Company, and the Film and Media Alliance of Southern Utah.
+        </p>
+        <p>
+          What the venue does <em>not</em> have is a unified public face. Today, a resident or a visitor curious about "what's on at the Electric Theater" has to know which of four organizations to look up, find each of their websites, and assemble the calendar themselves. Most people don't. Most events happen with a fraction of the audience the building could reach.
+        </p>
+
+        <h2>What this site proposes</h2>
+        <p>
+          On Stage is a single, well-designed website that does three things:
+        </p>
+        <ol>
+          <li><strong>Aggregates every event</strong> at the Electric Theater into one calendar, regardless of which company is producing.</li>
+          <li><strong>Elevates each resident organization</strong> with a consistent, professional presentation — particularly valuable for the groups that don't have in-house design resources.</li>
+          <li><strong>Makes the venue itself discoverable</strong> through proper SEO, structured event data that Google can show in search results, and a clear address-and-directions page.</li>
+        </ol>
+        <p>
+          It's deliberately restrained. No animations, no marketing fluff. The job is to put the right information in front of the right person quickly, and to make the Electric Theater feel like the serious cultural venue it is.
+        </p>
+
+        <h2>What it would cost the city</h2>
+        <p>
+          Negligible. The site is built as static HTML and hosted on a free tier of Netlify; ongoing infrastructure cost is effectively zero. The recurring cost is human: someone to keep the events calendar current. That work could sit with:
+        </p>
+        <ul>
+          <li>A part-time city staff role (a few hours a week)</li>
+          <li>A shared responsibility among the four resident companies (each adds their own events via a simple form)</li>
+          <li>A volunteer arts board, paid by the city or one of the resident nonprofits</li>
+        </ul>
+        <p>
+          The data model is designed to grow into automated ingestion — pulling events directly from each company's ticketing system or calendar feed — so the long-term maintenance burden trends toward zero.
+        </p>
+
+        <h2>What changes if the city adopts it</h2>
+        <ul>
+          <li>The Electric Theater earns the search-result presence its budget and history justify.</li>
+          <li>Tourists searching "things to do in St. George" surface real performance options — driving downtown foot traffic that benefits adjacent businesses.</li>
+          <li>The four resident organizations gain a shared promotional platform without losing their individual identities.</li>
+          <li>The city has a single, factual source of truth for the venue — useful for press, partnerships, and future programming decisions.</li>
+        </ul>
+
+        <h2>What I'm asking for</h2>
+        <p>
+          A conversation. I built this on my own time, with no city involvement, specifically so the proposal could be evaluated on its merits rather than its slide deck. If you're a decision-maker at the City of St. George, or someone close to one, I'd welcome the chance to walk you through it.
+        </p>
+
+        <div class="vision-cta">
+          <a href="/" class="btn btn--primary">Browse the site</a>
+          <a href="/events/" class="btn btn--ghost">See the events page</a>
+        </div>
+
+        <p class="vision-footnote">
+          On Stage is an independent initiative. The Electric Theater is owned and operated by the City of St. George. Resident companies are independent nonprofits.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .vision-hero {
+    padding-block: var(--space-3xl) var(--space-xl);
+    border-bottom: 1px solid var(--rule);
+    background:
+      radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 55%),
+      var(--bg-deep);
+  }
+
+  .vision-hero__inner {
+    max-width: 880px;
+  }
+
+  .vision-hero__title {
+    font-size: clamp(2.2rem, 1.6rem + 3vw, 4rem);
+    line-height: 1.1;
+    margin: var(--space-s) 0 var(--space-l);
+  }
+
+  .vision-hero__italic {
+    font-style: italic;
+    color: var(--accent-deep);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+
+  .vision-hero__lede {
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  .vision-cta {
+    display: flex;
+    gap: var(--space-s);
+    margin: var(--space-xl) 0 var(--space-l);
+    flex-wrap: wrap;
+  }
+
+  .vision-footnote {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--rule);
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    max-width: 60ch;
+  }
+</style>

@@ -1,0 +1,231 @@
+---
+import Base from '../../layouts/Base.astro';
+import EventCard from '../../components/EventCard.astro';
+import { getUpcomingEvents, CATEGORIES } from '../../data/events.js';
+import { organizations } from '../../data/organizations.js';
+
+const upcoming = getUpcomingEvents();
+
+const usedCategories = new Set(upcoming.map((e) => e.category));
+const visibleCategories = CATEGORIES.filter((c) => usedCategories.has(c.slug));
+---
+
+<Base
+  title="Events"
+  description="Every upcoming performance at the Electric Theater in St. George — theater, dance, film, and music from the venue's four resident companies."
+>
+  <section class="page-head">
+    <div class="container">
+      <p class="eyebrow eyebrow--accent">Events</p>
+      <h1>What's on at the Electric Theater</h1>
+      <p class="page-head__lede">
+        {upcoming.length} upcoming performance{upcoming.length === 1 ? '' : 's'} from our four resident companies. Filter by company, category, or time.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filters" role="region" aria-label="Filter events">
+        <div class="filter-group">
+          <label class="filter-group__label">Company</label>
+          <div class="filter-chips" data-filter-set="org">
+            <button class="filter-chip is-active" data-filter="org" data-value="all" type="button">All</button>
+            {organizations.map((org) => (
+              <button class="filter-chip" data-filter="org" data-value={org.slug} type="button">{org.shortName}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-group__label">Category</label>
+          <div class="filter-chips" data-filter-set="category">
+            <button class="filter-chip is-active" data-filter="category" data-value="all" type="button">All</button>
+            {visibleCategories.map((c) => (
+              <button class="filter-chip" data-filter="category" data-value={c.slug} type="button">{c.label}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-group__label">When</label>
+          <div class="filter-chips" data-filter-set="range">
+            <button class="filter-chip is-active" data-filter="range" data-value="all" type="button">All upcoming</button>
+            <button class="filter-chip" data-filter="range" data-value="this-month" type="button">This month</button>
+            <button class="filter-chip" data-filter="range" data-value="next-30" type="button">Next 30 days</button>
+            <button class="filter-chip" data-filter="range" data-value="next-90" type="button">Next 3 months</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="filter-results" id="filter-results" aria-live="polite">
+        Showing {upcoming.length} event{upcoming.length === 1 ? '' : 's'}
+      </p>
+
+      <div class="events-list" id="events-list">
+        {upcoming.map((event) => (
+          <div
+            class="events-list__item"
+            data-org={event.organizationSlug}
+            data-category={event.category}
+            data-next={event.nextPerformance?.startISO ?? ''}
+          >
+            <EventCard event={event} />
+          </div>
+        ))}
+      </div>
+
+      <div class="empty-state" id="empty-state" hidden>
+        <p>No events match those filters. Try widening your search.</p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-head {
+    padding-block: var(--space-2xl) var(--space-l);
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg-deep);
+  }
+
+  .page-head h1 {
+    margin: var(--space-s) 0 var(--space-m);
+    font-size: var(--step-5);
+  }
+
+  .page-head__lede {
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: 55ch;
+    margin: 0;
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-m) var(--space-xl);
+    padding: var(--space-l);
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-m);
+    margin-bottom: var(--space-m);
+  }
+
+  .filter-group__label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 0.6rem;
+  }
+
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .filter-chip {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+  }
+
+  .filter-chip:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .filter-chip.is-active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+
+  .filter-results {
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+    margin: 0 0 var(--space-m);
+  }
+
+  .events-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-l);
+  }
+
+  .events-list__item.is-hidden {
+    display: none;
+  }
+
+  .empty-state {
+    padding: var(--space-2xl) var(--space-l);
+    text-align: center;
+    color: var(--ink-mute);
+    border: 1px dashed var(--rule);
+    border-radius: var(--radius-m);
+    margin-top: var(--space-m);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const filters = { org: 'all', category: 'all', range: 'all' };
+    const items = Array.from(document.querySelectorAll('.events-list__item'));
+    const resultsLabel = document.getElementById('filter-results');
+    const emptyState = document.getElementById('empty-state');
+
+    function inRange(iso, range) {
+      if (!iso || range === 'all') return true;
+      const date = new Date(iso);
+      const now = new Date();
+      if (range === 'this-month') {
+        return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
+      }
+      const days = range === 'next-30' ? 30 : range === 'next-90' ? 90 : null;
+      if (days === null) return true;
+      const end = new Date(now);
+      end.setDate(end.getDate() + days);
+      return date >= now && date <= end;
+    }
+
+    function apply() {
+      let shown = 0;
+      items.forEach((item) => {
+        const matchesOrg = filters.org === 'all' || item.dataset.org === filters.org;
+        const matchesCat = filters.category === 'all' || item.dataset.category === filters.category;
+        const matchesRange = inRange(item.dataset.next, filters.range);
+        const visible = matchesOrg && matchesCat && matchesRange;
+        item.classList.toggle('is-hidden', !visible);
+        if (visible) shown++;
+      });
+
+      if (resultsLabel) {
+        resultsLabel.textContent = shown === 1 ? 'Showing 1 event' : `Showing ${shown} events`;
+      }
+      if (emptyState) emptyState.hidden = shown !== 0;
+    }
+
+    document.querySelectorAll('.filter-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const set = chip.dataset.filter;
+        const value = chip.dataset.value;
+        filters[set] = value;
+
+        chip.parentElement.querySelectorAll('.filter-chip').forEach((c) => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+
+        apply();
+      });
+    });
+  })();
+</script>
