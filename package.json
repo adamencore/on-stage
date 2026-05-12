@@ -7,7 +7,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "validate": "node scripts/validate-events.js",
-    "fetch": "node scripts/fetch-from-sheets.js"
+    "fetch": "node scripts/fetch-from-sheets.js",
+    "csv-template": "node scripts/generate-csv-template.js"
   },
   "type": "module",
   "private": "true",
