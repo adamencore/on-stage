@@ -16,6 +16,20 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <figure class="about-hero">
+    <img
+      src="/images/about/theater-1911.webp"
+      alt="The Electric Theater shortly after opening in 1911 — a stone-fronted building with 'St. George Amusement Co. 1911 Electric Theater' carved above the doors, surrounded by a crowd of children in turn-of-the-century clothing."
+      width="2500"
+      height="1261"
+      loading="eager"
+      decoding="async"
+    />
+    <figcaption class="about-hero__caption">
+      The Electric Theater shortly after opening, c. 1911. The building was the first motion picture theater in southern Utah and, according to local history, the first air-conditioned building in St. George.
+    </figcaption>
+  </figure>
+
   <section class="section">
     <div class="container container--narrow">
       <div class="prose">
@@ -39,7 +53,27 @@ import Base from '../layouts/Base.astro';
         <p>
           Today the Electric Theater is a city-owned performing arts venue. It hosts art and comedy shows, music performances, theatrical productions, and screenings — with an emphasis on supporting local and emerging artists in Washington County and across southern Utah.
         </p>
+      </div>
+    </div>
+  </section>
 
+  <figure class="about-figure">
+    <img
+      src="/images/about/production-encore.webp"
+      alt="An Encore Performing Arts cast on the Electric Theater stage during a production — a large ensemble of young performers in period costume gathered in front of a set of stylized building fronts."
+      width="1500"
+      height="1037"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption class="about-figure__caption">
+      An Encore Performing Arts production on the Electric Theater stage.
+    </figcaption>
+  </figure>
+
+  <section class="section section--tight">
+    <div class="container container--narrow">
+      <div class="prose">
         <blockquote>
           More than a century after it opened, the Electric Theater is still doing what it was built for: putting Southern Utahns in a room with a performance.
         </blockquote>
@@ -58,11 +92,29 @@ import Base from '../layouts/Base.astro';
         <p>
           On Stage exists to give those four programs a single, public-facing calendar — and to give the building itself the front door it deserves.
         </p>
-
-        <p class="prose__attribution">
-          History sourced from <a href="https://www.encorepa.org/blog/the-historic-electric-theater-in-st-george-utah" target="_blank" rel="noopener">Encore Performing Arts' history of the Electric Theater</a>.
-        </p>
       </div>
+    </div>
+  </section>
+
+  <figure class="about-figure about-figure--closing">
+    <img
+      src="/images/about/theater-night-marquee.webp"
+      alt="The Electric Theater at night with its marquee lit up, advertising an Encore Performing Arts production of Disney's Frozen Kids."
+      width="1000"
+      height="811"
+      loading="lazy"
+      decoding="async"
+    />
+    <figcaption class="about-figure__caption">
+      The Electric Theater marquee, lit for a recent Encore production.
+    </figcaption>
+  </figure>
+
+  <section class="section section--tight">
+    <div class="container container--narrow">
+      <p class="prose__attribution">
+        Historical details sourced from <a href="https://www.encorepa.org/blog/the-historic-electric-theater-in-st-george-utah" target="_blank" rel="noopener">Encore Performing Arts' history of the Electric Theater</a>. Historical photograph in the public domain.
+      </p>
     </div>
   </section>
 </Base>
@@ -86,11 +138,72 @@ import Base from '../layouts/Base.astro';
     margin: 0;
   }
 
+  .about-hero {
+    margin: 0;
+    padding: 0;
+    background: var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .about-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 70vh;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+
+  .about-hero__caption {
+    background: var(--ink);
+    color: color-mix(in srgb, var(--bg) 75%, transparent);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    padding: var(--space-m) clamp(1.25rem, 4vw, 2.5rem);
+    max-width: var(--container-max);
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  .about-figure {
+    margin: var(--space-2xl) auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    max-width: var(--container-max);
+  }
+
+  .about-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-m);
+    border: 1px solid var(--rule);
+  }
+
+  .about-figure__caption {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-mute);
+    font-style: italic;
+    margin-top: var(--space-s);
+    text-align: center;
+    max-width: 60ch;
+    margin-inline: auto;
+  }
+
+  .about-figure--closing {
+    max-width: 880px;
+  }
+
   .prose__attribution {
-    margin-top: var(--space-2xl);
+    margin-top: var(--space-l);
     padding-top: var(--space-m);
     border-top: 1px solid var(--rule);
     font-size: 0.85rem;
     color: var(--ink-mute);
+  }
+
+  /* Reduce top spacing for the section immediately after a figure */
+  .about-figure + .section {
+    padding-top: var(--space-l);
   }
 </style>
