@@ -77,13 +77,33 @@ That's an event with three performances.
 
 ## Adding an image to an event
 
-The maintainer adds images. Send them:
+Images are added to the site by the maintainer, who needs three things from you:
 
-1. A **square** image (the same width and height, e.g. 800×800 pixels). JPG, PNG, or SVG is fine. Most posters work.
-2. A short note for screen readers (e.g. "Our Town — Stage Door at the Electric Theater").
-3. (Optional) A hex color picked from the image — use [coolors.co/image-picker](https://coolors.co/image-picker), upload your image, click a dominant color, copy the hex.
+1. The **image file** (see naming rules below).
+2. **Alt text** — a short description for screen readers and search engines (e.g. "Our Town — Stage Door at the Electric Theater").
+3. (Optional) An **accent color** — a hex code picked from the image, e.g. `#5c4633`. Use [coolors.co/image-picker](https://coolors.co/image-picker): upload the image, click a dominant color, copy the hex.
 
-Once the maintainer adds the file to the site, put the filename in the **Image Filename** column (e.g. `our-town.jpg`), the description in **Image Alt**, and the hex code in **Accent Color**.
+Once the maintainer adds the file to the site, you'll fill in three cells in the event's row:
+
+- **Image Filename** — the filename only (e.g. `our-town.jpg`)
+- **Image Alt** — the description
+- **Accent Color** — the hex code
+
+### Image naming rules
+
+When sending an image to the maintainer, name the file like this:
+
+- **Lowercase only.** `our-town.jpg`, not `Our-Town.jpg` or `OurTown.jpg`.
+- **Hyphens between words**, never spaces or underscores. `dear-evan-hansen.jpg`, not `Dear Evan Hansen.jpg` or `dear_evan_hansen.jpg`.
+- **No special characters.** No apostrophes, ampersands, parentheses, accented letters. `beauty-and-the-beast.jpg`, not `Disney's Beauty & the Beast.jpg`.
+- **Match the event ID where possible.** If the event ID is `encore-lion-king`, name the image `encore-lion-king.jpg`. This keeps things searchable later.
+
+### Image specs
+
+- **Square** (same width and height). Most posters work. Crop to square if needed.
+- **800 to 1200 pixels on the long side.** Bigger is wasted; the site scales down.
+- **Under 500 KB.** If a JPG is over 1 MB, run it through a free compressor like [squoosh.app](https://squoosh.app) first.
+- **Format:** WebP is best (smallest file), JPG is fine, PNG only if you need transparency.
 
 ---
 
